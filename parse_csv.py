@@ -3,6 +3,36 @@ import csv
 # importing sqlite3 module
 import sqlite3
 
+import os
+import fnmatch
+
+from config import config
+
+db_file = config.get('db_csv.db')
+table_name = config.get('csv_data')
+directory = config.get('path_csv')
+
+def send_data(directory):
+    
+    csv_files = find_csv_files(directory)
+    for file in csv_files:
+        print(file)
+        csv_to_sqlite(csv_file=file, db_file=db_file, table_name=table_name)
+        
+
+def find_csv_files(directory):
+    csv_files = []
+    for root, dirnames, filenames in os.walk(directory):
+        for filename in fnmatch.filter(filenames, '*.csv'):
+            csv_files.append(os.path.join(root, filename))
+    return csv_files
+
+# # Example usage
+# directory = '/path/to/directory'
+# csv_files = find_csv_files(directory)
+# for file in csv_files:
+#     print(file)
+
 def csv_to_sqlite(csv_file, db_file='db_csv.db', table_name='csv_data'):
   
     # read the csv file
