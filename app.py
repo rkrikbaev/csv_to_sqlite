@@ -46,12 +46,10 @@ def data():
     if not session.get('logged_in'):
         return redirect('/')
     
-    update_db(directory)    
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     cursor.execute('SELECT * FROM data_table')
-#     rows = cursor.fetchall()
-#     conn.close()
+    list_of_files = find_csv_files(directory)
+    for file in list_of_files:
+        data = read_from_csv(csv_file=file)
+        put_to_sqlite(data, db_file=DATABASE, string:table_name=OBJECTS)
     
     return render_template('data.html', rows=rows)
 
