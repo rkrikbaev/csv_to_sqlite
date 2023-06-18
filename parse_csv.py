@@ -42,13 +42,25 @@ def csv_to_sqlite(csv_file, db_file='db_csv.db', table_name='csv_data'):
         # skip the header 
         next(csv_file_reader,None)
         # create fileds 
-        sr =''
-        period=''
-        data_value=''
-        suppressed=''
+        period = ''
         status = ''
-        units= ''
-        magnitude =''
+        dev1_density = 0,0
+        dev1_volume = 0,0
+        dev1_temperature = 0,0
+        dev1_massflowbegin = 0,0
+        dev1_massflowend = 0,0
+        dev1_mass = 0,0
+        dev1_masstotalizer = 0,0
+        dev2_density = 0,0
+        dev2_volume = 0,0
+        dev2_temperature = 0,0
+        dev2_tankLevel = 0,0
+        dev2_mass = 0,0
+        dev3_density = 0,0
+        dev3_volume = 0,0
+        dev3_temperature = 0,0
+        dev3_tankLevel = 0,0
+        dev3_mass = 0,0        
 
         ##### create a database table using sqlite3###
 
@@ -70,13 +82,13 @@ def csv_to_sqlite(csv_file, db_file='db_csv.db', table_name='csv_data'):
                 for i in range(len(row)):
                     # Check if the current value already exists in the table
                     value_to_check = row[0]  # The value to check is in the first column
-                    check_query = f'SELECT COUNT(*) FROM {table_name} WHERE column_name = ?'  # Replace column_name with the appropriate column name
+                    check_query = f'SELECT COUNT(*) FROM {table_name} WHERE column_name = dt'
                     cursor.execute(check_query, (value_to_check,))
                     result = cursor.fetchone()
                     if result[0] == 0:  # If the count is 0, the value doesn't exist in the table                    
                         # assign each field its value
-                        sr=row[0]
-                        period=row[1]
+                        dt=row[0]
+                        dt=row[1]
                         data_value=row[2]
                         suppressed=row[3]
                         status = row[4]
