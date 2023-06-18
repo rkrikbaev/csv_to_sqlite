@@ -4,21 +4,7 @@ import csv
 import sqlite3
 
 import os
-import fnmatch
-
-from config import config
-
-db_file = config.get('db_file')
-table_name = config.get('table_name')
-directory = config.get('path_csv')
-
-def send_data(directory):
-    
-    csv_files = find_csv_files(directory)
-    for file in csv_files:
-        print(file)
-        csv_to_sqlite(csv_file=file, db_file=db_file, table_name=table_name)
-        
+import fnmatch      
 
 def find_csv_files(directory):
     csv_files = []
@@ -27,14 +13,8 @@ def find_csv_files(directory):
             csv_files.append(os.path.join(root, filename))
     return csv_files
 
-# # Example usage
-# directory = '/path/to/directory'
-# csv_files = find_csv_files(directory)
-# for file in csv_files:
-#     print(file)
-
-def csv_to_sqlite(csv_file, db_file='db_csv.db', table_name='csv_data'):
-  
+def from_csv(csv_file):
+    
     # read the csv file
     with open(csv_file , 'r') as csvfile:
         # create the object of csv.reader()
@@ -60,8 +40,12 @@ def csv_to_sqlite(csv_file, db_file='db_csv.db', table_name='csv_data'):
                     dev3_volume REAL,
                     dev3_temperature REAL,
                     dev3_tankLevel REAL,
-                    dev3_mass REAL''' 
+                    dev3_mass REAL'''
         
+        return fields
+
+def to_sqlite(data, db_file='db_csv.db', table_name='csv_data'):
+    
         ##### create a database table using sqlite3###
 
         # 1. create query    
