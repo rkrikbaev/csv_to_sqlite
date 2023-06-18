@@ -42,32 +42,30 @@ def csv_to_sqlite(csv_file, db_file='db_csv.db', table_name='csv_data'):
         # skip the header 
         next(csv_file_reader,None)
         # create fileds 
-        period = ''
-        status = ''
-        dev1_density = 0,0
-        dev1_volume = 0,0
-        dev1_temperature = 0,0
-        dev1_massflowbegin = 0,0
-        dev1_massflowend = 0,0
-        dev1_mass = 0,0
-        dev1_masstotalizer = 0,0
-        dev2_density = 0,0
-        dev2_volume = 0,0
-        dev2_temperature = 0,0
-        dev2_tankLevel = 0,0
-        dev2_mass = 0,0
-        dev3_density = 0,0
-        dev3_volume = 0,0
-        dev3_temperature = 0,0
-        dev3_tankLevel = 0,0
-        dev3_mass = 0,0        
-
+        fields = '''period TEXT,
+                    status TEXT,
+                    dev1_density REAL,
+                    dev1_volume REAL,
+                    dev1_temperature REAL,
+                    dev1_massflowbegin REAL,
+                    dev1_massflowend REAL,
+                    dev1_mass REAL,
+                    dev1_masstotalizer REAL,
+                    dev2_density REAL,
+                    dev2_volume REAL,
+                    dev2_temperature REAL,
+                    dev2_tankLevel REAL,
+                    dev2_mass REAL,
+                    dev3_density REAL,
+                    dev3_volume REAL,
+                    dev3_temperature REAL,
+                    dev3_tankLevel REAL,
+                    dev3_mass REAL''' 
+        
         ##### create a database table using sqlite3###
 
         # 1. create query    
-        Table_Query = f'''CREATE TABLE if not Exists {table_name} 
-        (Series_reference TEXT,Period TEXT,Data_value TEXT,
-        Suppressed TEXT,STATUS TEXT,UNITS TEXT,Magnitude REAL)'''
+        Table_Query = f'''CREATE TABLE if not Exists {table_name} ( fields )'''
 
         # 2. create database
         connection=sqlite3.connect(db_file)
